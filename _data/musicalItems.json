@@ -1,0 +1,26 @@
+[
+  {
+    "name": "item-1",
+    "description": "des 1",
+    "photo": "no-photo",
+    "category": "62c2856b26696971e91f1fea"
+  },
+  {
+    "name": "item-2",
+    "description": "des 2",
+    "photo": "no-photo",
+    "category": "62c2856b26696971e91f1fea"
+  },
+  {
+    "name": "item-3",
+    "description": "des 3",
+    "photo": "no-photo",
+    "category": "62c2856b26696971e91f1fea"
+  },
+  {
+    "name": "item-4",
+    "description": "des 4",
+    "photo": "no-photo",
+    "category": "62c2856b26696971e91f1fec"
+  }
+]
