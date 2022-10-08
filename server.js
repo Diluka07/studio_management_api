@@ -18,6 +18,7 @@ connectDB();
 const musicalItems = require("./routes/musicalItems");
 const categories = require("./routes/categories");
 const auth = require("./routes/auth");
+const users = require("./routes/users");
 
 const app = express();
 
@@ -42,6 +43,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/musicalItems", musicalItems);
 app.use("/api/categories", categories);
 app.use("/api/auth", auth);
+app.use("/api/users", users);
 
 app.use(errorHandler);
 
