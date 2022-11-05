@@ -25,6 +25,7 @@ const musicalItems = require("./routes/musicalItems");
 const categories = require("./routes/categories");
 const auth = require("./routes/auth");
 const users = require("./routes/users");
+const customers = require("./routes/customers");
 
 const app = express();
 
@@ -72,6 +73,7 @@ app.use("/api/musicalItems", musicalItems);
 app.use("/api/categories", categories);
 app.use("/api/auth", auth);
 app.use("/api/users", users);
+app.use("/api/customers", customers);
 
 app.use(errorHandler);
 
