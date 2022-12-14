@@ -2,6 +2,7 @@ const path = require("path");
 const ErrorResponse = require("../utils/errorResponse");
 const asyncHandler = require("../middleware/async");
 const MusicalItem = require("../models/MusicalItem");
+const ItemIdentity = require("../models/ItemIdentity");
 
 // @desc    Get all musical items
 // @route   GET /api/musicalitems
@@ -11,13 +12,13 @@ exports.getMusicalItems = asyncHandler(async (req, res, next) => {
   let query;
 
   if (req.params.categoryId) {
-    query = MusicalItem.find({ category: req.params.categoryId });
+    query = ItemIdentity.find({ category: req.params.categoryId });
   } else {
-    query = MusicalItem.find().populate({
-      path: "category",
-      select: "name",
-    });
-    //populate("category");
+    query = ItemIdentity.find().populate("category");
+    // populate({
+    //   path: "category",
+    //   select: "name",
+    // });
   }
   const musicalItems = await query;
   res.status(200).json({ success: true, data: musicalItems });
@@ -27,10 +28,9 @@ exports.getMusicalItems = asyncHandler(async (req, res, next) => {
 // @route   GET /api/musicalitems/:id
 // @access  Public
 exports.getMusicalItem = asyncHandler(async (req, res, next) => {
-  const musicalItem = await MusicalItem.findById(req.params.id).populate({
-    path: "category",
-    select: "name",
-  });
+  const musicalItem = await ItemIdentity.findById(req.params.id).populate(
+    "category"
+  );
   if (!musicalItem) {
     return next(
       new ErrorResponse(
@@ -46,11 +46,44 @@ exports.getMusicalItem = asyncHandler(async (req, res, next) => {
 // @route   POST /api/musicalitems
 // @access  Private
 exports.addMusicalItem = asyncHandler(async (req, res, next) => {
-  const musicalItem = await MusicalItem.create(req.body);
+  let itemIdentity = null;
+  let musicalItem = null;
+
+  // Create new item identity and add as a new item
+  if (!req.body.isExistingItem) {
+    itemIdentity = await ItemIdentity.create({
+      name: req.body.itemName,
+      quantity: 1,
+      category: req.body.category,
+      cost: req.body.cost,
+    });
+    musicalItem = await MusicalItem.create({
+      isRented: false,
+      itemCode: itemIdentity.id,
+    });
+  }
+  // update existing item identity quantity and add new item
+  else {
+    musicalItem = await MusicalItem.create({
+      isRented: false,
+      itemCode: req.body.itemId,
+    });
+    const itemData = await ItemIdentity.findById(req.body.itemId);
+    itemIdentity = await ItemIdentity.findByIdAndUpdate(
+      itemData.id,
+      {
+        quantity: itemData.quantity + 1,
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+  }
 
   res.status(201).json({
     success: true,
-    data: musicalItem,
+    data:{musicalItem}
   });
 });
 
