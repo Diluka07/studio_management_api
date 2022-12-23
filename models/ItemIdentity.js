@@ -18,8 +18,12 @@ const ItemIdentitySchema = new mongoose.Schema({
     required: true,
   },
   cost: {
-    type: Number,  
+    type: Number,
     required: true,
+  },
+  inStockQuantity: {
+    type: Number,
+    required: true
   },
 });
 

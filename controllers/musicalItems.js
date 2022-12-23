@@ -56,6 +56,7 @@ exports.addMusicalItem = asyncHandler(async (req, res, next) => {
       quantity: 1,
       category: req.body.category,
       cost: req.body.cost,
+      inStockQuantity: 1,
     });
     musicalItem = await MusicalItem.create({
       isRented: false,
@@ -73,6 +74,7 @@ exports.addMusicalItem = asyncHandler(async (req, res, next) => {
       itemData.id,
       {
         quantity: itemData.quantity + 1,
+        inStockQuantity: itemData.inStockQuantity + 1,
       },
       {
         new: true,
@@ -83,7 +85,7 @@ exports.addMusicalItem = asyncHandler(async (req, res, next) => {
 
   res.status(201).json({
     success: true,
-    data:{musicalItem}
+    data: { musicalItem },
   });
 });
 
@@ -91,7 +93,7 @@ exports.addMusicalItem = asyncHandler(async (req, res, next) => {
 // @route   PUT /api/musicalitems/:id
 // @access  Private
 exports.updateMusicalItem = asyncHandler(async (req, res, next) => {
-  const musicalItem = await MusicalItem.findByIdAndUpdate(
+  const musicalItem = await ItemIdentity.findByIdAndUpdate(
     req.params.id,
     req.body,
     {

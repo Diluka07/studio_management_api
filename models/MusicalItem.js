@@ -13,6 +13,10 @@ const MusicalItemSchema = new mongoose.Schema({
     ref: "ItemIdentity",
     required: true,
   },
+  isRemoved: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = mongoose.model("MusicalItem", MusicalItemSchema);
