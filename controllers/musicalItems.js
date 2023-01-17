@@ -114,6 +114,24 @@ exports.updateMusicalItem = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: musicalItem });
 });
 
+// @desc    Get single product
+// @route   GET /api/musicalitems/product/:id
+// @access  Public
+exports.getProduct = asyncHandler(async (req, res, next) => {
+  const musicalItem = await MusicalItem.findById(req.params.id).populate(
+    "itemCode"
+  );
+  if (!musicalItem) {
+    return next(
+      new ErrorResponse(
+        `Musical Item not found with id of ${req.params.id}`,
+        404
+      )
+    );
+  }
+  res.status(200).json({ success: true, data: musicalItem });
+});
+
 // @desc    Delete musical item
 // @route   DELETE /api/musicalitems/:id
 // @access  Private

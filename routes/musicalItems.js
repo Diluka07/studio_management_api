@@ -3,8 +3,9 @@ const {
   getMusicalItem,
   getMusicalItems,
   addMusicalItem,
-  deleteMusicalItem,
   updateMusicalItem,
+  getProduct,
+  deleteMusicalItem,
   musicalItemPhotoUpload,
 } = require("../controllers/musicalItems");
 
@@ -23,5 +24,8 @@ router
   .get(protect, authorize("manager", "cashier"), getMusicalItem)
   .put(protect, authorize("manager"), updateMusicalItem)
   .delete(protect, authorize("manager"), deleteMusicalItem);
+router  
+  .route("/product/:id")
+  .get(protect, authorize("manager", "cashier"), getProduct)
 
 module.exports = router;
