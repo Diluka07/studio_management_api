@@ -17,6 +17,13 @@ const ItemRentalInvoiceSchema = new mongoose.Schema({
   actualReturnDate: {
     type: Date,
   },
+  expectedReturnTime: {
+    type: String,
+    required: [true, "Please add a Return Time"],
+  },
+  actualReturnTime: {
+    type: String,
+  },
   rentalCost: {
     type: Number,
     required: [true, "Please add rental cost"]
@@ -40,8 +47,7 @@ const ItemRentalInvoiceSchema = new mongoose.Schema({
     ref: "User",
   },
   items:{
-    any:Array,
-    required: [true, "Please add items to invoice"]
+    type:Array,
   }
   
 });

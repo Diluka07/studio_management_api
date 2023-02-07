@@ -14,7 +14,7 @@ const sendEmail = async (options) => {
 
   // send mail with defined transport object
   const message = {
-    from: `${process.env.FOROM_NAME}`,
+    from: `${process.env.FROM_NAME}`,
     to: options.email,
     subject: options.subject,
     text: options.message

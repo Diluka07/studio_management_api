@@ -28,3 +28,15 @@ exports.createCustomer = asyncHandler(async (req, res, next) => {
       data: customer,
     });
   });
+
+  // @desc    Get All Customers
+  // @route   GET /api/customers
+  // @access  Public
+  exports.getAllCustomers = asyncHandler(async (req, res, next) => {
+    const customers = await Customer.find();
+  
+    res.status(200).json({
+      success: true,
+      data: customers,
+    });
+  });

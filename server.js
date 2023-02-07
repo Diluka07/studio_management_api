@@ -26,6 +26,7 @@ const categories = require("./routes/categories");
 const auth = require("./routes/auth");
 const users = require("./routes/users");
 const customers = require("./routes/customers");
+const invoices = require("./routes/invoices");
 
 const app = express();
 
@@ -74,6 +75,7 @@ app.use("/api/categories", categories);
 app.use("/api/auth", auth);
 app.use("/api/users", users);
 app.use("/api/customers", customers);
+app.use("/api/invoices", invoices);
 
 app.use(errorHandler);
 
