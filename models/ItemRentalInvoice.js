@@ -26,7 +26,7 @@ const ItemRentalInvoiceSchema = new mongoose.Schema({
   },
   rentalCost: {
     type: Number,
-    required: [true, "Please add rental cost"]
+    required: [true, "Please add rental cost"],
   },
   latePeriod: {
     type: Number,
@@ -46,10 +46,13 @@ const ItemRentalInvoiceSchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: "User",
   },
-  items:{
-    type:Array,
-  }
-  
+  items: {
+    type: Array,
+  },
+  isFinished: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = mongoose.model("ItemRentalInvoice", ItemRentalInvoiceSchema);
